@@ -33,3 +33,6 @@
 
 # vscode
 .vscode
+
+# debugging objects
+*.dSYM
