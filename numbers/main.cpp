@@ -3,6 +3,25 @@
 
 #define COLUMN_NUMBER 5
 
+// merge two sorted arrays
+void merge(double arr1[], double arr2[], double sortedarray[]) {
+    int i = 0, j = 0, k = 0;
+    while(i < COLUMN_NUMBER and j < COLUMN_NUMBER) {
+        if(arr1[i] < arr2[j])
+            sortedarray[k++] = arr1[i++];
+        else
+            sortedarray[k++] = arr2[j++];
+    }
+
+    while(i < COLUMN_NUMBER) {
+        sortedarray[k++] = arr1[i++];
+    }
+
+    while(j < COLUMN_NUMBER) {
+        sortedarray[k++] = arr2[j++];
+    }
+}
+
 // sort using bubble sort
 void sort(double arr[]) {
     int tmp;
@@ -39,7 +58,15 @@ void read(const std::string & fileName, double arr[]) {
 int main(int argc, char const *argv[])
 {
     double array[COLUMN_NUMBER] = {};
-    read("read.txt", array);
-    sort(array);
+    // read("read.txt", array);
+    // sort(array);
+
+    double arr1[] = {1, 3, 5, 7}; 
+  
+    double arr2[] = {2, 4, 6, 8}; 
+  
+    double arr3[8] = {}; 
+    
+    merge(arr1, arr2, arr3);
     return 0;
 }
