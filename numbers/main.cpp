@@ -3,7 +3,7 @@
 
 #define COLUMN_NUMBER 5
 
-void read(const std::string & fileName) {
+void readBinary(const std::string & fileName) {
     std::ifstream inStream(fileName, std::ios::binary);
     double xd;
     if(inStream) {
@@ -92,7 +92,7 @@ int main(int argc, char const *argv[])
     double dbarray[2*COLUMN_NUMBER] = {5.6, 2.3, 4.7, 2, 6, 8.2};
 
     write("data.bin", dbarray);
-    read("data.bin");
+    readBinary("data.bin");
 
     return 0;
 }
