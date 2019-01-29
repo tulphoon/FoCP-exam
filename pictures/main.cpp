@@ -10,8 +10,8 @@ void read(const std::string & fileName, int picture[W][K], int & rows, int & col
     if(inStream) {
         int pixel;
         inStream >> rows >> columns;
+
         if(rows > W or columns > K) return;
-        else if(rows < 0 or columns < 0) return;
         
         for(int i = 0; i < rows; i++) {
             for(int j = 0; j < columns; j++) {
@@ -37,12 +37,23 @@ void write(const std::string & fileName, int picture[W][K], const int & rows, co
     }
 }
 
+void transform(const std::string & inputFile, const std::string & outputFile) {
+    int rows, columns;
+    int basePicture[W][K];
+    read(inputFile, basePicture, rows, columns);
+
+    int average;
+    int transformedPicture[W][K];
+
+    for(int i = 0; i < rows; i++) {
+        for(int j = 0; j < columns; j++) {
+            // TODO: TRANSFROM function
+        }
+    }
+}
+
 int main(int argc, char const *argv[])
 {
-    int rows = -1;
-    int columns = -1;
-    int array[W][K];
-    read("picture.txt", array, rows, columns);
-    write("outputPicture.txt", array, rows, columns);
+    transform("picture.txt", "outputPicture.txt");
     return 0;
 }
