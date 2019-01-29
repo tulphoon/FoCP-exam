@@ -59,6 +59,12 @@ void sort(double arr[]) {
 
 void read(const std::string & fileName, double arr[]) {
     std::ifstream is(fileName);
+    
+    // if the file does not exist or is empty, fill the array with zeros
+    for(int i = 0; i < COLUMN_NUMBER; i++) {
+        arr[i] = 0;
+    }
+
     if(is) { 
         int counter = 0;
         while(!is.eof()) {
