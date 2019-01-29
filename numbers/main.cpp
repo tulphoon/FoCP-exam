@@ -3,6 +3,7 @@
 
 #define COLUMN_NUMBER 5
 
+// Funkcja read
 void read(const std::string & fileName, double arr[]) {
     std::ifstream is(fileName);
     if(is) { 
