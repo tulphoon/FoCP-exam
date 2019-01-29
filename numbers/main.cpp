@@ -3,11 +3,12 @@
 
 #define COLUMN_NUMBER 5
 
+// NOT NEEDED FOR TASK, only for checking values in the binary file
 void readBinary(const std::string & fileName) {
     std::ifstream inStream(fileName, std::ios::binary);
     double xd;
     if(inStream) {
-        for(int i = 0; i < 2*COLUMN_NUMBER; i++) {
+        for(int i = 0; i < 2 * COLUMN_NUMBER; i++) {
             inStream.read(reinterpret_cast<char *>(&xd), sizeof(double));
         }
     }
@@ -44,7 +45,7 @@ void merge(double arr1[], double arr2[], double sortedarray[]) {
 
 // sort using bubble sort
 void sort(double arr[]) {
-    int tmp;
+    double tmp;
     for(int i = 0; i < COLUMN_NUMBER - 1; i++) {
         for(int j = 0; j < COLUMN_NUMBER - i - 1; j++) {
             if(arr[j] > arr[j+1]) {
@@ -56,7 +57,6 @@ void sort(double arr[]) {
     }
 }
 
-// Funkcja read
 void read(const std::string & fileName, double arr[]) {
     std::ifstream is(fileName);
     if(is) { 
@@ -75,24 +75,22 @@ void read(const std::string & fileName, double arr[]) {
     }
 }
 
+void operation(const std::string & firstFileName, const std::string & secondFileName, const std::string & outputFileName) {
+    double firstArray[COLUMN_NUMBER];
+    double secondArray[COLUMN_NUMBER];
+    double mergedArray[2 * COLUMN_NUMBER];
+
+    read(firstFileName, firstArray);
+    read(secondFileName, secondArray);
+    sort(firstArray);
+    sort(secondArray);
+    merge(firstArray, secondArray, mergedArray);
+    write(outputFileName, mergedArray);
+}
+
 int main(int argc, char const *argv[])
 {
-    // double array[COLUMN_NUMBER] = {};
-    // read("read.txt", array);
-    // sort(array);
-
-    // double arr1[] = {1, 3, 5, 7}; 
-  
-    // double arr2[] = {2, 4, 6, 8}; 
-  
-    // double arr3[8] = {}; 
-    
-    // merge(arr1, arr2, arr3);
-
-    double dbarray[2*COLUMN_NUMBER] = {5.6, 2.3, 4.7, 2, 6, 8.2};
-
-    write("data.bin", dbarray);
-    readBinary("data.bin");
-
+    operation("firstinput.txt", "secondinput.txt", "binaryoutput.bin");
+    readBinary("binaryoutput.bin"); // this is for debugging purposes only!
     return 0;
 }
