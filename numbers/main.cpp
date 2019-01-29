@@ -11,6 +11,7 @@ void readBinary(const std::string & fileName) {
         for(int i = 0; i < 2 * COLUMN_NUMBER; i++) {
             inStream.read(reinterpret_cast<char *>(&xd), sizeof(double));
         }
+        inStream.close();
     }
 }
 
@@ -21,6 +22,7 @@ void write(const std::string & fileName, double arr[]) {
         for(int i = 0; i < 2 * COLUMN_NUMBER; i++) {
             outStream.write(reinterpret_cast<char *>(&arr[i]), sizeof arr[i]);
         }
+        outStream.close();
     }
 }
 
@@ -78,6 +80,7 @@ void read(const std::string & fileName, double arr[]) {
         for(int i = 0; i < COLUMN_NUMBER; i++) {
             arr[i] = arr[i] / counter;
         }
+        is.close();
     }
 }
 
