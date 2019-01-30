@@ -37,6 +37,22 @@ void write(const std::string & fileName, int picture[W][K], const int & rows, co
     }
 }
 
+int calculateAverage(const int &x, const int &y, int picture[W][K], const int &rows, const int &columns) {
+    
+    int sum = 0;
+    int counter = 0;
+
+    for(int i = 0, a = x - 1; i < 3; i++, a++) {
+        for(int j = 0, b = y - 1; j < 3; j++, b++) {
+            if(a >= 0 and a < rows and b >= 0 and b < columns) {
+                sum += picture[a][b];
+                counter++;
+            }
+        }
+    }
+    return sum / counter;
+}
+
 void transform(const std::string & inputFile, const std::string & outputFile) {
     int rows, columns;
     int basePicture[W][K];
@@ -47,9 +63,10 @@ void transform(const std::string & inputFile, const std::string & outputFile) {
 
     for(int i = 0; i < rows; i++) {
         for(int j = 0; j < columns; j++) {
-            // TODO: TRANSFROM function
+            transformedPicture[i][j] = calculateAverage(i, j, basePicture, rows, columns);
         }
     }
+    write(outputFile, transformedPicture, rows, columns);
 }
 
 int main(int argc, char const *argv[])
