@@ -25,22 +25,22 @@ Cruise * findCruise(Cruise * pH, const std::string & start_harbour, const std::s
 Cruise * addCruise(Cruise * & pH, Cruise * & pTail, const std::string & date, const std::string & start_harbour, const std::string & end_harbour) {
     if(!pH) {
         return pTail = pH = new Cruise {start_harbour, end_harbour, date, nullptr, nullptr, nullptr }; // add element to empty list
+    } else if(date <= pH->date) {
+        pH = new Cruise {start_harbour, end_harbour, date, nullptr, nullptr, pH }; // insert at the beginning of a list
+        pH->pNext->pPrev = pH;
+        return pH;
+    } else if(date >= pTail->date) {
+        pTail->pNext = new Cruise {start_harbour, end_harbour, date, nullptr, pTail, nullptr}; // insert at the end of a list
+        pTail = pTail->pNext;
+        return pTail;
     }
 
     auto p = pH;
     while(p) {
         if(date <= p->date) {
-            if(p->pPrev)
-                return p->pPrev->pNext = new Cruise {start_harbour, end_harbour, date, nullptr, p->pPrev, p}; // insert in between two existing elements
-            pH = new Cruise {start_harbour, end_harbour, date, nullptr, nullptr, p }; // insert at the beginning of a list
-            p->pPrev = pH;
-            return pH;
-        }
-
-        if(p == pTail) {
-            pTail = new Cruise {start_harbour, end_harbour, date, nullptr, p, nullptr}; // insert at the end of a list
-            p->pNext = pTail;
-            return pTail;
+            p->pPrev->pNext = new Cruise {start_harbour, end_harbour, date, nullptr, p->pPrev, p}; // insert in between two existing elements
+            p->pPrev = p->pPrev->pNext;
+            return p->pPrev;
         }
         p = p->pNext;
     }
