@@ -12,6 +12,22 @@ struct Cruise {
     Cruise * pPrev, * pNext;
 };
 
+// TODO: still didn't finish this function, doesn't work properly!
+Passenger * addPassengerToCruise(Passenger * pH, const std::string & name, const std::string & surname) {
+    if(!pH) {
+        return pH = new Passenger { name, surname, nullptr };
+    }
+
+    if(surname <= pH->surname) {
+        pH->pNext = addPassengerToCruise(pH->pNext, pH->name, pH->surname);
+        pH->name = name;
+        pH->surname = surname;
+        return pH;
+    } else {
+        addPassengerToCruise(pH->pNext, name, surname);
+    }
+}
+
 Cruise * findCruise(Cruise * pH, const std::string & start_harbour, const std::string & end_harbour, const std::string & date) {
     if(!pH)
         return nullptr;
@@ -56,5 +72,10 @@ int main(int argc, char const *argv[])
     addCruise(head, tail, "2016-04-24", "14:00", "15:30");
     addCruise(head, tail, "2016-08-12", "06:00", "07:30");
     addCruise(head, tail, "2016-07-02", "14:00", "14:30");
+
+    Passenger * passengers = nullptr;
+    passengers = addPassengerToCruise(passengers, "Dawid", "Osuchowski");
+    addPassengerToCruise(passengers, "Adam", "Malysz");
+    addPassengerToCruise(passengers, "Zir", "Xir");
     return 0;
 }
