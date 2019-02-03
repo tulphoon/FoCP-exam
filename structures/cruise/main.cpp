@@ -77,6 +77,28 @@ void addPassenger(Cruise * & pH, Cruise * & pT, const std::string & date, const 
     }
 }
 
+Cruise * favourite(Cruise * & pH) {
+    int currentMax = 0;
+    Cruise * favCruise = nullptr;
+    
+    auto p = pH;
+    while(p) { // traversing the Cruise list
+        int counter = 0; // counts the number of passengers inside of a given Cruise
+        auto pPass = p->pPassengers;
+        while(pPass) { // traversing the passengers of a cruise
+            counter++;
+            pPass = pPass->pNext;
+        }
+        if(counter > currentMax) { // compare number of passengers in cruise to current maximum number of passengers in another cruise
+            currentMax = counter;
+            favCruise = p;
+        }
+        p = p->pNext;
+    }
+    return favCruise;
+
+}
+
 int main(int argc, char const *argv[])
 {
     Cruise * head = nullptr;
@@ -95,5 +117,7 @@ int main(int argc, char const *argv[])
     addPassenger(head, tail, "2016-07-02", "14:00", "14:30", "Karol", "Krawczyk");
     addPassenger(head, tail, "2016-07-02", "14:00", "14:30", "Karol", "Adamczyk");
     addPassenger(head, tail, "2019-01-02", "07:20", "13:25", "Wojciech", "Suchodolski");
+
+    Cruise * fave = favourite(head);
     return 0;
 }
