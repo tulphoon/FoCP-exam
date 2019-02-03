@@ -67,6 +67,16 @@ Cruise * addCruise(Cruise * & pH, Cruise * & pTail, const std::string & date, co
     return nullptr;
 }
 
+void addPassenger(Cruise * & pH, Cruise * & pT, const std::string & date, const std::string & start_harbour, const std::string & end_harbour, const std::string & name, const std::string & surname) {
+    Cruise * foundCruise = findCruise(pH, start_harbour, end_harbour, date);
+    if(foundCruise) {
+        foundCruise->pPassengers = addPassengerToCruise(foundCruise->pPassengers, name, surname);
+    } else {
+        Cruise * createdCruise = addCruise(pH, pT, date, start_harbour, end_harbour);
+        createdCruise->pPassengers = addPassengerToCruise(createdCruise->pPassengers, name, surname);
+    }
+}
+
 int main(int argc, char const *argv[])
 {
     Cruise * head = nullptr;
@@ -81,5 +91,9 @@ int main(int argc, char const *argv[])
     passengers = addPassengerToCruise(passengers, "Adam", "Malysz");
     passengers = addPassengerToCruise(passengers, "Nopeusz", "Nopeusz");
     passengers = addPassengerToCruise(passengers, "Zir", "Zopeusz");
+
+    addPassenger(head, tail, "2016-07-02", "14:00", "14:30", "Karol", "Krawczyk");
+    addPassenger(head, tail, "2016-07-02", "14:00", "14:30", "Karol", "Adamczyk");
+    addPassenger(head, tail, "2019-01-02", "07:20", "13:25", "Wojciech", "Suchodolski");
     return 0;
 }
